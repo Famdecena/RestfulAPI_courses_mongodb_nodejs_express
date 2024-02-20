@@ -12,7 +12,8 @@ mongoose.connect('mongodb+srv://decenafam96:LjAzilMxyJlr5vL9@cluster0.nhsr4t2.mo
 const rawData = [
   {
     program: "BSIS",
-    "1st Year": [
+    year: "1st Year",
+    courses: [
       {
         code: "BSIS101",
         description: "Introduction to Information Systems",
@@ -32,7 +33,9 @@ const rawData = [
         tags: ["BSIS103", "BSIS", "Database", "Management", "Systems"]
       }
     ],
-    "2nd Year": [
+    program: "BSIS",
+    year: "2nd Year",
+    courses: [
       {
         code: "BSIS201",
         description: "Systems Analysis and Design",
@@ -52,7 +55,9 @@ const rawData = [
         tags: ["BSIS203", "BSIS", "Data", "Structures", "Algorithms"]
       }
     ],
-    "3rd Year": [
+    program: "BSIS",
+    year: "3rd Year",
+    courses: [
       {
         code: "BSIS301",
         description: "Web Development",
@@ -72,7 +77,9 @@ const rawData = [
         tags: ["BSIS303", "BSIS", "Information", "Security"]
       }
     ],
-    "4th Year": [
+    program: "BSIS",
+    year: "4th Year",
+    courses: [
       {
         code: "BSIS401",
         description: "Enterprise Systems",
@@ -95,7 +102,8 @@ const rawData = [
   },
   {
     program: "BSIT",
-    "1st Year": [
+    year: "1st Year",
+    courses: [
       {
         code: "BSIT101",
         description: "Introduction to Information Technology",
@@ -115,7 +123,9 @@ const rawData = [
         tags: ["BSIT103", "BSIT", "Computer", "Organization", "Architecture"]
       }
     ],
-    "2nd Year": [
+    program: "BSIT",
+    year: "2nd Year",
+    courses: [
       {
         code: "BSIT201",
         description: "Database Management",
@@ -135,7 +145,9 @@ const rawData = [
         tags: ["BSIT203", "BSIT", "Operating", "Systems"]
       }
     ],
-    "3rd Year": [
+    program: "BSIT",
+    year: "3rd Year", 
+    courses: [
       {
         code: "BSIT301",
         description: "Networking",
@@ -155,7 +167,9 @@ const rawData = [
         tags: []
       }
     ],
-    "4th Year": [
+    program: "BSIT",
+    year: "4th Year",
+    courses: [
       {
         code: "BSIT401",
         description: "Project Management",
@@ -177,7 +191,6 @@ const rawData = [
     ]
   }
 ];
-
 const preprocessData = (rawData) => {
   const processedData = [];
   rawData.forEach(programBlock => {
