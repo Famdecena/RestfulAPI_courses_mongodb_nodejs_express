@@ -1,10 +1,11 @@
 const express = require('express');
+const mongoose = require ('mongoose');
 const app = express();
 const port = 3003;
 
 //acccess websites on web browser we need the following routes for example
 app.get('/', (req, res) => {
-    res.send('Hello, Course-API!');
+    res.send('This is, Course-API!');
   });
   
   app.get('/about', (req, res) => {
@@ -14,3 +15,10 @@ app.get('/', (req, res) => {
 app.listen(port, () => {
   console.log(`Server is listening on port ${port}`);
 });
+
+mongoose.connect('mongodb+srv://decenafam96:LjAzilMxyJlr5vL9@cluster0.nhsr4t2.mongodb.net/?retryWrites=true&w=majority')
+.then (() => {
+  console.log('Connected to MOngoDB')
+}).catch ((error) => {
+  console.log(error)
+})
