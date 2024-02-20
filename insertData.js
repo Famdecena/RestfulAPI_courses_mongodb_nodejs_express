@@ -55,22 +55,16 @@ const rawData = [
 
 ]
 
-
-const preprocessData = (rawData) => {
-  const processedData = [];
-  rawData.forEach(programBlock => {
-    const program = programBlock.program;
-    Object.entries(programBlock).forEach(([key, value]) => {
-      if (key !== 'program') {
-        const year = key;
-        value.forEach(course => {
-          processedData.push({ ...course, year, program });
-        });
-      }
-    });
-  });
-  return processedData;
+const preprocessData = () => {
+  return rawData.flatMap(({ program, year, courses }) =>
+    courses.map(course => ({
+      ...course,
+      program,
+      year // Directly using the string like "1st Year"
+    }))
+  );
 };
+
 
 const insertData = async () => {
   const coursesToInsert = preprocessData(rawData);

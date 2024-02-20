@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const courseSchema = new mongoose.Schema({
 
     program: String,
-    year: Number,
+    year: String,
     code: String,
     description: String,
     units: Number,
