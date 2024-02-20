@@ -1,24 +1,23 @@
 const express = require('express');
 const mongoose = require ('mongoose');
+
+const courseRoutes = require('./routes/courseRoutes'); // Import routes
+
 const app = express();
-const port = 3003;
+const PORT = process.env.PORT || 3003;
 
-//acccess websites on web browser we need the following routes for example
-app.get('/', (req, res) => {
-    res.send('This is, Course-API!');
-  });
-  
-  app.get('/about', (req, res) => {
-    res.send('Today we will finally be able to connect MongoDB I claim it!.');
-  });
+//TO ACCESS THE ROUTES TO BROWSER OR TEST IN POSTMAN WE DONT NEED TO EXPLICITLY WRITE THOSE OPERATIONS HERE 
+//SINCE WE HAVE THE ROUTES, THE INITIAL ONES ARE DELETED
 
-app.listen(port, () => {
-  console.log(`Server is listening on port ${port}`);
-});
-
+//Connect to MongoDB
 mongoose.connect('mongodb+srv://decenafam96:LjAzilMxyJlr5vL9@cluster0.nhsr4t2.mongodb.net/?retryWrites=true&w=majority')
 .then (() => {
   console.log('Connected to MOngoDB')
 }).catch ((error) => {
-  console.log(error)
+  console.log()
 })
+
+app.use(express.json()); // Middleware to parse JSON bodies
+
+// Use the courseRoutes
+app.use('/api/courses', courseRoutes); // This line incorporates all routes
