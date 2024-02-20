@@ -1,10 +1,10 @@
 const express = require('express');
 const mongoose = require ('mongoose');
 
-const courseRoutes = require('./routes/courseRoutes'); // Import routes
+const courseRoutes = require('./routes/courseRoutes.js'); // Import routes
 
 const app = express();
-const PORT = process.env.PORT || 3003;
+const PORT = process.env.PORT || 3006;
 
 //TO ACCESS THE ROUTES TO BROWSER OR TEST IN POSTMAN WE DONT NEED TO EXPLICITLY WRITE THOSE OPERATIONS HERE 
 //SINCE WE HAVE THE ROUTES, THE INITIAL ONES ARE DELETED
@@ -21,3 +21,7 @@ app.use(express.json()); // Middleware to parse JSON bodies
 
 // Use the courseRoutes
 app.use('/api/courses', courseRoutes); // This line incorporates all routes
+
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
