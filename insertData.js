@@ -55,25 +55,29 @@ const rawData = [
 
 ]
 
-const preprocessData = () => {
-  return rawData.flatMap(({ program, year, courses }) =>
-    courses.map(course => ({
-      ...course,
-      program,
-      year // Directly using the string like "1st Year"
-    }))
-  );
+const preprocessData = (rawData) => {
+  const processedData = [];
+  rawData.forEach(programBlock => {
+    const { program, courses } = programBlock;
+    courses.forEach(course => {
+      const processedCourse = {
+        ...course,
+        program, // Adding program from the programBlock
+      };
+      processedData.push(processedCourse);
+    });
+  });
+  return processedData;
 };
-
 
 const insertData = async () => {
   const coursesToInsert = preprocessData(rawData);
   try {
-    await Course.deleteMany({}); // Clear collection before insertion
+    await Course.deleteMany({}); // Clears the collection before insertion, if needed
     await Course.insertMany(coursesToInsert);
-    console.log('All courses have been successfully inserted.');
+    console.log('Courses inserted successfully.');
   } catch (error) {
-    console.error('Failed to insert courses:', error);
+    console.error('Error inserting courses:', error);
   }
 };
 
