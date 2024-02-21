@@ -20,7 +20,7 @@ router.get('/course/:code', async (req, res) => {
         const courseDetail = {
             Name: course.description,
             Specialization: course.program,
-            Tags: course.tags.join(", ") // Optional: Convert tags array to string for easy reading
+           
         };
 
         res.json(courseDetail);
@@ -32,26 +32,41 @@ router.get('/course/:code', async (req, res) => {
 //APPROACH: clue tag "Backend"
 router.get('/backend-courses', async (req, res) => {
     try {
-        const backendCourses = await Course.find({ tags: "Backend" }).sort('description'); // Assuming 'description' is the course name
-        res.json(backendCourses);
+        const backendCourses = await Course.find({ tags: "Backend" })
+            .sort('description') // Sort alphabetically 
+            .select('description program year -_id'); // Select description, program, and year fields
+
+        // Transform the data to format the "Name" as "description - program - year"
+        const coursesOutput = backendCourses.map(course => ({
+            Name: `${course.description} - ${course.program} - ${course.year}`
+        }));
+
+        res.json(coursesOutput);
     } catch (error) {
         res.status(500).send(error);
     }
 });
+
 //FOR: Retrieve all published BSIS (Bachelor of Science in Information Systems) 
 //APPROACH: Summary of those of BSIS
 router.get('/bsis/summary', async (req, res) => {
     try {
+        // Fetch BSIS courses and sort them by year and then code
         const bsisCourses = await Course.find({ program: 'BSIS' })
-            .sort('code')
-            .select('code description -_id');
-        
-        const summary = bsisCourses.map(course => ({
-            Code: course.code,
-            Name: course.description
-        }));
+            .sort({ year: 1, code: 1 })
+            .select('year code description -_id');
 
-        res.json({ program: 'BSIS', summary });
+        // Format the response to include the program and courses categorized by year
+        const formattedResponse = {
+            program: 'BSIS',
+            courses: bsisCourses.map(course => ({
+               
+                course: `${course.description} - ${course.year} - ${course.code}`,
+                
+            }))
+        };
+
+        res.json(formattedResponse);
     } catch (error) {
         res.status(500).send(error);
     }
@@ -60,38 +75,26 @@ router.get('/bsis/summary', async (req, res) => {
 //APPROACH: Summary of those of BSIT
 router.get('/bsit/summary', async (req, res) => {
     try {
+        // Fetch BSIT courses and sort them by year and then code
         const bsitCourses = await Course.find({ program: 'BSIT' })
-            .sort('code')
-            .select('code description -_id');
-        
-        const summary = bsitCourses.map(course => ({
-            Code: course.code,
-            Name: course.description
-        }));
+            .sort({ year: 1, code: 1 })
+            .select('year code description -_id');
 
-        res.json({ program: 'BSIT', summary });
+        // Format the response to include the program and courses categorized by year
+        const formattedResponse = {
+            program: 'BSIT',
+            courses: bsitCourses.map(course => ({
+               
+                course: `${course.description} - ${course.year} - ${course.code}`,
+                
+            }))
+        };
+
+        res.json(formattedResponse);
     } catch (error) {
         res.status(500).send(error);
     }
 });
-// FOR BOTH
-// APPROACH: Combined Summary
-router.get('/courses/summary', async (req, res) => {
-    try {
-        const allCourses = await Course.find({ program: { $in: ['BSIS', 'BSIT'] } })
-            .sort('program code')
-            .select('program code description -_id');
-        
-        const summary = allCourses.map(course => ({
-            Program: course.program,
-            Code: course.code,
-            Name: course.description
-        }));
 
-        res.json({ summary });
-    } catch (error) {
-        res.status(500).send(error);
-    }
-});
 
 module.exports = router;
