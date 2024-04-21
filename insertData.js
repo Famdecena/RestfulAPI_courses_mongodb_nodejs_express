@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
-const Course = require('./models/Course'); 
+const Course = require('./functions/models/Course'); 
 
 //Connect to MongoDB
-mongoose.connect('mongodb+srv://decenafam96:LjAzilMxyJlr5vL9@cluster0.nhsr4t2.mongodb.net/?retryWrites=true&w=majority')
+mongoose.connect('mongodb+srv://decenafam96:U5EYoygrjGjJnmgq@cluster0.nhsr4t2.mongodb.net/?retryWrites=true&w=majority')
 .then (() => {
   console.log('Connected to MOngoDB')
 }).catch ((error) => {
