@@ -1,9 +1,10 @@
 [build]
   functions = "functions"  
+  
 
 
 
 [dev]
-  command = "npm run serve"  
+  command = "npm run build"  
   publish = "dist" 
   port = 8889
