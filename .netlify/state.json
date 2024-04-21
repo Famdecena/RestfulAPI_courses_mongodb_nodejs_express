@@ -1,0 +1,20 @@
+{
+	"siteId": "27ae346b-a84e-47ac-be4b-468030c13698",
+	"geolocation": {
+		"data": {
+			"city": "Lipa City",
+			"country": {
+				"code": "PH",
+				"name": "Philippines"
+			},
+			"subdivision": {
+				"code": "40",
+				"name": "Calabarzon"
+			},
+			"timezone": "Asia/Manila",
+			"latitude": 13.9394,
+			"longitude": 121.1669
+		},
+		"timestamp": 1713707069748
+	}
+}
